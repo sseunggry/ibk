@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="ko">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+        <title>worksheet</title>
+        <style>
+            * {
+                margin: 0;
+                padding: 0;
+            }
+            body {
+                font-size: 12px;
+                line-height: 1.5;
+                font-family: inherit;
+                background-color: #fff;
+            }
+            #wrap {
+                padding-top: 50px;
+            }
+            table {
+                width: calc(100% - 50px);
+                margin: 0 25px 60px;
+                border-top: 2px solid #7a7a7a;
+                border-collapse: collapse;
+            }
+            th,
+            td {
+                border-bottom: 1px solid #bfbfbf;
+                border-right: 1px solid #bfbfbf;
+                vertical-align: top;
+                padding: 6px 12px 5px;
+            }
+            th {
+                background-color: #f4f7fc;
+            }
+            th:last-child,
+            td:last-child {
+                border-right-width: 0;
+                color: rgb(59, 98, 255);
+            }
+            td em {
+                font-weight: bold;
+            }
+            td a {
+                color: skyblue;
+                text-decoration: underline;
+            }
+            td button {
+                padding: 5px 20px;
+                color: #fff;
+                border: 1px solid rgb(59, 98, 255);
+                border-radius: 4px;
+                width: 100%;
+                background-color: rgb(0, 85, 255);
+            }
+            tr:hover td {
+                background-color: #f4f7fc;
+            }
+            tr.color {
+                background-color: #f4f7fc;
+            }
+            table .bg-gray {
+                background-color: #eee;
+                color: #999;
+            }
+            table .bg-gray a {
+                color: #999;
+            }
+        </style>
+    </head>
+
+    <body>
+        <div id="wrap">
+            <div class="table-wrap">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Depth 1</th>
+                            <th>Depth 2</th>
+                            <th>Depth 3</th>
+                            <th>화면유형</th>
+                            <th>Page ID</th>
+                            <th>Notice</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </body>
+
+    <script>
+        const data = [
+            // {
+            //     category: "tutorial",
+            //     list: [
+            //         {}
+            //     ]
+            // },
+            {category: "tutorial", depth1: "체험관", depth2: "홈", depth3: "", name: "home", etc: ""},
+            {category: "tutorial", depth1: "체험관", depth2: "인포", depth3: "", name: "info", etc: ""},
+            {category: "tutorial", depth1: "체험관", depth2: "메인", depth3: "", name: "main", etc: ""},
+            {category: "tutorial", depth1: "체험관", depth2: "메인2", depth3: "", name: "main2", etc: ""},
+            {category: "tutorial", depth1: "체험관", depth2: "슬라이드_01", depth3: "", name: "slide_01", etc: ""},
+            {category: "tutorial", depth1: "체험관", depth2: "슬라이드_02", depth3: "", name: "slide_02", etc: ""},
+            {category: "tutorial", depth1: "체험관", depth2: "슬라이드_03", depth3: "", name: "slide_03", etc: ""},
+            {category: "tutorial", depth1: "체험관", depth2: "슬라이드_04", depth3: "", name: "slide_04", etc: ""},
+            {category: "tutorial", depth1: "체험관", depth2: "슬라이드_05", depth3: "", name: "slide_05", etc: ""},
+            {category: "tutorial", depth1: "체험관", depth2: "슬라이드_06", depth3: "", name: "slide_06", etc: ""},
+            {category: "tutorial", depth1: "체험관", depth2: "슬라이드_07", depth3: "", name: "slide_07", etc: ""},
+            {category: "tutorial", depth1: "체험관", depth2: "슬라이드_08", depth3: "", name: "slide_08", etc: ""},
+            {category: "tutorial", depth1: "체험관", depth2: "슬라이드_09", depth3: "", name: "slide_09", etc: ""},
+            {category: "tutorial", depth1: "체험관", depth2: "슬라이드_10", depth3: "", name: "slide_10", etc: ""},
+        ]
+        const tableBody = document.querySelector('.table-wrap table tbody');
+        let html = '';
+        data.forEach((el, idx) => {
+            let url = el.category ? `./${el.category}/html/${el.name}.html` : `./html/${el.name}.html`;
+            if(el.category) el.category =
+            html += `<tr>
+                <td>${el.depth1}</td>
+                <td>${el.depth2}</td>
+                <td>${el.depth3}</td>
+                <td></td>
+                <td><a href=${url}>${el.name}</a></td>
+                <td>${el.etc}</td>
+            </tr>`;
+        });
+
+        tableBody.innerHTML = html;
+    </script>
+</html>

@@ -1,0 +1,89 @@
+@charset "utf-8";
+
+/* 전역변수 */
+:root {
+	/* 색상 */
+	--color-light: #fff;
+	--color-gray: #E1E3EA;
+	--color-gray-dark: #D3D6DE;
+	--color-dark: #101116;
+	--color-primary: #2873E3;
+	--color-primary-light:#5292F5;
+	--color-primary-base:#51BAF5;
+	--color-secondary: #35ADBD;
+	--color-txt: #454855;
+
+	--color-highlight: #F3F9FF;
+	--color-highlight-dark: #4393F0;
+
+	--color-circle-bg1:#0C70F5;
+	--color-circle-bg2:#7A5FED;
+	--color-circle-bg3:#51BAF5;
+	--color-circle-bg4:#229EAF;
+	--color-circle-bg5:#3BA983;
+	--color-circle-bg6:#D4D654;
+	--color-circle-bg7:#3BA983;
+	--color-circle-bg8:#5292F5;
+	--color-circle-bg9:#FC7974;
+	--color-circle-bg10:#A4C66D;
+
+	--color-badge-bg1:#159CC8;
+	--color-badge-bg2:#B562DD;
+	--color-badge-bg3:#599E37;
+	/* hdaer 높이 */
+	--hd-hight:7.6rem;
+
+	/* 폰트두께 */
+	--font-extrabold: 800;
+	--font-bold: 700;
+	--font-semibold: 600;
+	--font-medium: 500;
+	--font-regular: 400;
+	--font-light: 300;
+
+	/* 폰트크기 */
+	--font-headline-lg: 5.8rem;
+	--font-headline-md: 4.8rem;
+
+	--font-title-lg: 3.6rem;
+	--font-title-md: 2.8rem;
+	--font-title-sm: 2.0rem;
+
+	--font-lg: 2.4rem;
+	--font-md: 1.6rem;
+	--font-sm: 1.4rem;
+	--font-xs: 1.2rem;
+
+	/* 그림자 */
+	--shadow: 0 4px 12px 0 rgba(0, 0, 0, 0.12);
+	--shadow-sm: 0 0 0 0 rgba(0, 0, 0, 0.1);
+
+	/* 모서리지름 */
+	--radius-full: 100%;
+	--radius-lg: 99.9rem;
+	--radius-md: 1.6rem;
+	
+	/* 애니메이션 */
+	--animation-speed: .5s;
+	--animation-speed-ease: 10s;
+	--animation-speed-fast: .15s;
+}
+
+/* 초기화 */
+*, ::before, ::after {box-sizing: border-box;}
+body, button, dd, dl, dt, fieldset, form, h1, h2, h3, h4, h5, h6, legend, ul, ol, li, p, input, select, textarea, table, th, td {margin: 0; padding: 0; font-weight: var(--font-regular);}
+html {-webkit-text-size-adjust: none; -webkit-tap-highlight-color: transparent; background-color: var(--color-light); font-size: 62.5%;}
+body {text-rendering: optimizeLegibility; -webkit-font-smoothing: antialiased; font-family: 'Pretendard', Pretendard, -apple-system, BlinkMacSystemFont, system-ui, Roboto, 'Helvetica Neue', 'Segoe UI', 'Apple SD Gothic Neo', 'Noto Sans KR', 'Malgun Gothic', 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', sans-serif; line-height: 1.6; font-size: var(--font-sm); font-weight: var(--font-regular); color: var(--color-dark);}
+html, body {/*overflow: hidden; height: 100%;*/}
+button, input, select, textarea {max-width: 100%; font: inherit; box-shadow: none; background-color: transparent;}
+button, [type=button], [type=reset], [type=submit] {-webkit-appearance: button; appearance: button;}
+canvas, img, picture, svg, video {display: block; max-width: 100%; -webkit-touch-callout: none; -webkit-user-select: none; -moz-user-select: none; -ms-use-select: none; user-select: none;}
+button {background-color: transparent; border: 0;}
+fieldset {border: 0;}
+table {border-collapse: collapse; border-spacing: 0;}
+ol, ul {list-style-type: none;}
+strong {font-weight: 700;}
+em {font-style: normal;}
+a {text-decoration: none; cursor: pointer;;}
+a:hover, a:focus, a:active, a:visited {text-decoration: none;}
+h1 {font-weight: var(--font-regular);}
