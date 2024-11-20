@@ -71,7 +71,7 @@ const swiperSlide = {
                     const swiperBullet = document.querySelectorAll('.swiper-pagination-bullet');
                     const swiperButton = document.querySelectorAll('.swiper-buttons-wrap [role=button]');
 
-                    if( swiperSlide.length != swiper.activeIndex+1 ) {
+                    if( swiperSlide.length !== swiper.activeIndex+1 ) {
                         swiperBullet.forEach(function(btn){
                             btn.setAttribute('tabIndex', '-1');
                         });
@@ -254,7 +254,7 @@ const swiperSlide = {
             // shiftKey tab event
             if(event.key === 'Tab' && event.shiftKey){
                 // slide last page check
-                if( swiperSlide.length == swiper.activeIndex+1 ) {
+                if( swiperSlide.length === swiper.activeIndex+1 ) {
                     // slide move
                     if( !document.activeElement.classList.contains('swiper-pagination-bullet') && !document.activeElement.classList.contains('swiper-button-prev') && !document.activeElement.classList.contains('swiper-button-next') ) {
                         event.preventDefault();
