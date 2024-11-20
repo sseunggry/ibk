@@ -11,13 +11,15 @@ const swiperSlide = {
     },
     /* 슬라이드 이벤트 */
     slideEvent:()=>{
+        let tabEventChecker = true;
+
         const swiper = new Swiper('.swiper-container', {
             //initialSlide:9,
-            direction: 'horizontal', 
-            slidesPerView: 'auto',  
-            spaceBetween: 0,        
-            mousewheel: true,  
-            speed:1000,    
+            direction: 'horizontal',
+            slidesPerView: 'auto',
+            spaceBetween: 0,
+            mousewheel: true,
+            speed:1000,
             pagination: {
                 el: '.swiper-pagination',
                 clickable: true,
@@ -66,38 +68,28 @@ const swiperSlide = {
                     activeIdx === 0 ? btnSwiperBtnWrap.classList.add('hide') : btnSwiperBtnWrap.classList.remove('hide');
                     activeIdx === 8 ? btnSwiperNext.classList.add('hide') : btnSwiperNext.classList.remove('hide');
 
-                    // 슬라이드가 변경될 때마다 활성화된 슬라이드에 tabIndex 설정
-                    this.slides[activeIdx].setAttribute('tabIndex', '0');
+                    const swiperBullet = document.querySelectorAll('.swiper-pagination-bullet');
+                    const swiperButton = document.querySelectorAll('.swiper-buttons-wrap [role=button]');
 
-                    console.log(this);
+                    if( swiperSlide.length != swiper.activeIndex+1 ) {
+                        swiperBullet.forEach(function(btn){
+                            btn.setAttribute('tabIndex', '-1');
+                        });
+                        swiperButton.forEach(function(btn){
+                            btn.setAttribute('tabIndex', '-1');
+                        });
+                    }
 
-                    // slide.addEventListener('focus', function(e){
-                    //     const target = e.currentTarget;
-                    //     const slideBtn = target.querySelectorAll('button');
-                    //
-                    //     // 버튼이 있을 경우, 해당 버튼에 대해 처리
-                    //     if(slideBtn.length){
-                    //         slideBtn.forEach(function(btn){
-                    //             btn.setAttribute('tabIndex', '0'); // 버튼에 포커스가 가능하도록 설정
-                    //         });
-                    //
-                    //         // 마지막 버튼에서 Tab 눌렀을 때 다음 슬라이드로 이동
-                    //         slideBtn[slideBtn.length - 1].addEventListener('keydown', function(btnEvent){
-                    //             if(btnEvent.key === 'Tab' && !btnEvent.shiftKey){
-                    //                 swiper.slideTo(slideIdx+1);
-                    //                 target.setAttribute('tabIndex', '-1'); // 이전 슬라이드는 포커스 못하게 설정
-                    //             }
-                    //         });
-                    //     } else{
-                    //         // 버튼이 없을 경우, 해당 슬라이드 자체에서 Tab 눌렀을 때 다음 슬라이드로 이동
-                    //         target.addEventListener('keydown', function(slideEvent){
-                    //             if(slideEvent.key === 'Tab' && !slideEvent.shiftKey){
-                    //                 swiper.slideTo(slideIdx+1);
-                    //                 target.setAttribute('tabIndex', '-1'); // 현재 슬라이드는 포커스를 잃게 설정
-                    //             }
-                    //         });
-                    //     }
-                    // });
+                    const haderButton = document.querySelector('.content-header .btn');
+                    if( activeIdx === 0 ) {
+                        haderButton.setAttribute('tabIndex', '0');
+                    } else {
+                        haderButton.setAttribute('tabIndex', '-1');
+                    }
+
+                    if( activeIdx === 0 || activeIdx === 8 ) {
+                        tabEventChecker = true;
+                    }
                 },
 
                 init: function () {
@@ -126,15 +118,6 @@ const swiperSlide = {
                             cardBtn.addEventListener('focus', function(e){
                                 cardMotionEvent(e);
                             });
-
-                            const cardBtnLast = cardButtons[cardButtons.length - 1];
-                            cardBtnLast.addEventListener('keydown', function(e){
-                                if(e.key === 'Tab'){
-                                    if(!e.shiftKey){
-                                        e.currentTarget.closest('.swiper-slide').nextElementSibling.focus();
-                                    }
-                                }
-                            });
                         });
                     });
 
@@ -161,97 +144,180 @@ const swiperSlide = {
                     const scrollItem = document.querySelector('.card-cont.scroll');
                     scrollItem.addEventListener('wheel', function(e){
                         e.stopPropagation();
-                    });
+                    })
+                },
 
-                    const slideList = document.querySelectorAll('.experience-info .swiper-slide');
-                    const slideActive = document.querySelector('.experience-info .swiper-slide-active');
-                    const slideBtn = document.querySelectorAll('.experience-info button');
-                    const swiperBtn = document.querySelectorAll('.experience-info [role="button"]');
+                reachEnd: function(){
+                    const swiperBullet = document.querySelectorAll('.swiper-pagination-bullet');
+                    const swiperButton = document.querySelectorAll('.swiper-buttons-wrap [role=button]');
 
-                    slideList.forEach(function(slide){
-                        slide.setAttribute('tabIndex', '-1');
-                    });
-                    slideBtn.forEach(function(btn){
-                        btn.setAttribute('tabIndex', '-1');
-                    });
-                    swiperBtn.forEach(function(btn){
-                        btn.setAttribute('tabIndex', '-1');
-                    });
-                    slideActive.setAttribute('tabIndex', '0');
-                    slideActive.querySelectorAll('button').forEach(function(btn){
+                    swiperBullet.forEach(function(btn){
                         btn.setAttribute('tabIndex', '0');
                     });
+                    swiperButton.forEach(function(btn){
+                        btn.setAttribute('tabIndex', '0');
+                    });
+
                 },
             },
         });
 
         /* 스와이퍼 포커스 이벤트 */
-        const swiperSlides = document.querySelectorAll('.experience-info .swiper-slide');
+        const swiperSlide = document.querySelectorAll('.experience-info .swiper-slide');
         const swiperSlideBtn = document.querySelectorAll('.experience-info button');
         const swiperBtn = document.querySelectorAll('.experience-info [role="button"]');
+        const swiperBullet = document.querySelectorAll('.swiper-pagination-bullet');
 
-        swiperSlides.forEach(function(slide, slideIdx){
-            // 슬라이드의 tabIndex 기본값 '-1'로 설정
-            // slide.setAttribute('tabIndex', '-1');
+        swiperSlide.forEach(function(slide){
+            // 슬라이드의 tabIndex를 기본값 '-1'로 설정
+            slide.setAttribute('tabIndex', '-1');
+        });
 
-            // 'swiper-slide-active' 클래스가 있는 슬라이드는 tabIndex '0'으로 설정하여 포커스가 가능하도록 설정
-            // if(slide.classList.contains('swiper-slide-active')){
-            //     slide.setAttribute('tabIndex', '0');
-            // }
 
-            // 각 슬라이드 내 버튼들의 tabIndex '-1'로 설정하여 기본적으로 포커스를 못하도록 설정
-            // swiperSlideBtn.forEach(function(btn){
-            //    btn.setAttribute('tabIndex', '-1');
-            // });
-            // swiperBtn.forEach(function(btn){
-            //    btn.setAttribute('tabIndex', '-1');
-            // });
+        // 페이지 내에 버튼 여부 체크
+        let slideBtn = swiperSlide[swiper.activeIndex].querySelectorAll('button');
+        if(slideBtn.length){
+            slideBtn[slideBtn.length-1].addEventListener('keydown', function(btnEvent){
+                if(btnEvent.key === 'Tab' && !btnEvent.shiftKey){
+                    tabEventChecker = false;
+                }
 
-            // 포커스가 해당 슬라이드로 이동할 때의 이벤트 처리
-            slide.addEventListener('focus', function(e){
-                const target = e.currentTarget;
-                const slideBtn = target.querySelectorAll('button');
-
-                // 버튼이 있을 경우, 해당 버튼에 대해 처리
-                if(slideBtn.length){
-                    slideBtn.forEach(function(btn){
-                        btn.setAttribute('tabIndex', '0'); // 버튼에 포커스가 가능하도록 설정
-                    });
-
-                    // 마지막 버튼에서 Tab 눌렀을 때 다음 슬라이드로 이동
-                    slideBtn[slideBtn.length - 1].addEventListener('keydown', function(btnEvent){
-                        if(btnEvent.key === 'Tab' && !btnEvent.shiftKey){
-                            swiper.slideTo(slideIdx+1);
-                            target.setAttribute('tabIndex', '-1'); // 이전 슬라이드는 포커스 못하게 설정
-                        }
-                    });
-                } else{
-                    // 버튼이 없을 경우, 해당 슬라이드 자체에서 Tab 눌렀을 때 다음 슬라이드로 이동
-                    target.addEventListener('keydown', function(slideEvent){
-                       if(slideEvent.key === 'Tab' && !slideEvent.shiftKey){
-                           swiper.slideTo(slideIdx+1);
-                           target.setAttribute('tabIndex', '-1'); // 현재 슬라이드는 포커스를 잃게 설정
-                       }
-                    });
+                if(btnEvent.key === 'Tab' && btnEvent.shiftKey){
+                    tabEventChecker = true;
                 }
             });
+
+            slideBtn.forEach(function(btn){
+                btn.setAttribute('tabIndex', '0');
+            });
+        }
+
+        // swiper bullet 첫번째 요소 이벤트
+        swiperBullet[0].addEventListener("keydown", function(event){
+            // shiftKey tab event
+            if(event.key === 'Tab' && event.shiftKey){
+                event.stopPropagation();
+                event.preventDefault();
+
+                // focus remove
+                document.activeElement.blur();
+
+                // slide move
+                swiper.slideTo(swiper.activeIndex-1);
+
+                swiperBullet.forEach(function(btn){
+                    btn.setAttribute('tabIndex', '-1');
+                });
+            }
+        });
+
+        window.addEventListener("keydown", function(event){
+            console.log(tabEventChecker);
+            // tab event
+            if(event.key === 'Tab' && !event.shiftKey && !tabEventChecker){
+                event.preventDefault();
+
+                // slide move
+                swiper.slideTo(swiper.activeIndex+1);
+
+                // focus remove
+                document.activeElement.blur();
+
+                // slide tab btn check
+                slideBtn = swiperSlide[swiper.activeIndex].querySelectorAll('button');
+                if(slideBtn.length){
+                    tabEventChecker = true;
+
+                    slideBtn[slideBtn.length-1].addEventListener('keydown', function(btnEvent){
+                        if(btnEvent.key === 'Tab' && !btnEvent.shiftKey){
+                            tabEventChecker = false;
+                        }
+
+                        if(btnEvent.key === 'Tab' && btnEvent.shiftKey){
+                            tabEventChecker = true;
+                        }
+                    });
+
+                    slideBtn.forEach(function(btn){
+                        btn.setAttribute('tabIndex', '0');
+                    });
+                }
+
+                let oldSlideBtn = swiperSlide[swiper.activeIndex-1].querySelectorAll('button');
+                if(oldSlideBtn.length){
+                    oldSlideBtn.forEach(function(btn){
+                        btn.removeAttribute('tabIndex');
+                    });
+                }
+            }
+
+            // shiftKey tab event
+            if(event.key === 'Tab' && event.shiftKey){
+                // slide last page check
+                if( swiperSlide.length == swiper.activeIndex+1 ) {
+                    // slide move
+                    if( !document.activeElement.classList.contains('swiper-pagination-bullet') && !document.activeElement.classList.contains('swiper-button-prev') && !document.activeElement.classList.contains('swiper-button-next') ) {
+                        event.preventDefault();
+                        swiper.slideTo(swiper.activeIndex-1);
+                    }
+                } else {
+                    let prevSlideBtn = swiperSlide[swiper.activeIndex-1].querySelectorAll('button');
+                    if(prevSlideBtn.length){
+                        tabEventChecker = true;
+                    }
+
+                    // slide tab btn check
+                    slideBtn = swiperSlide[swiper.activeIndex].querySelectorAll('button');
+                    if(slideBtn.length){
+                        slideBtn[0].addEventListener('keydown', function(btnEvent){
+                            if(btnEvent.key === 'Tab' && btnEvent.shiftKey){
+                                tabEventChecker = false;
+                            }
+
+                            if(btnEvent.key === 'Tab' && !btnEvent.shiftKey){
+                                tabEventChecker = true;
+                            }
+                        });
+
+                        slideBtn.forEach(function(btn){
+                            btn.setAttribute('tabIndex', '0');
+                        });
+                    } else {
+                        tabEventChecker = false;
+                    }
+
+                    if( !tabEventChecker ) {
+                        event.preventDefault();
+
+                        // slide move
+                        swiper.slideTo(swiper.activeIndex-1);
+
+                        let oldSlideBtn = swiperSlide[swiper.activeIndex+1].querySelectorAll('button');
+                        if(oldSlideBtn.length){
+                            oldSlideBtn.forEach(function(btn){
+                                btn.removeAttribute('tabIndex');
+                            });
+                        }
+                    }
+                }
+            }
         });
     },
     /* 이용자선택 이벤트 */
     stepEvent:()=>{
         const cardStep = document.querySelector('.card-step');
         const cardStepBtns = cardStep.querySelectorAll('.list a');
-        const cardStepCont = cardStep.querySelectorAll('.imgs img');  
+        const cardStepCont = cardStep.querySelectorAll('.imgs img');
 
         cardStepBtns.forEach(function(btn, idx){
-           
+
             btn.addEventListener('click', function(item){
                 cardStepCont.forEach(function(cardCont){
-                    cardCont.classList.remove('is-active');   
+                    cardCont.classList.remove('is-active');
                 });
 
                 cardStepBtns.forEach(function(cardBtn){
-                    cardBtn.closest('li').classList.remove('is-active');   
+                    cardBtn.closest('li').classList.remove('is-active');
                 });
 
                 item.target.closest('li').classList.add('is-active');
