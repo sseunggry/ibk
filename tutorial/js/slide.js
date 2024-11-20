@@ -23,14 +23,14 @@ function openModal(isOpen, isStart) {
         }
         document.querySelector(".dimmed").style.display = "block";
         document.querySelector(".modal").style.display = "block";
-        document.querySelector("#container", "#container a", "#container button").setAttribute('tab-index', '-1');
+        document.querySelector("#container", "#container a", "#container button").setAttribute('tabIndex', '-1');
         document.querySelector(".modal").focus();
-        document.querySelector(".modal", ".modal button").setAttribute('tab-index', '0');
+        document.querySelector(".modal", ".modal button").setAttribute('tabIndex', '0');
     } else {
         document.querySelector(".modalContentBox").innerText = "";
         document.querySelector(".dimmed").style.display = "none";
         document.querySelector(".modal").style.display = "none";
-        // document.querySelector(".modal .modal-btn").setAttribute('tab-index', '-1');
+        // document.querySelector(".modal .modal-btn").setAttribute('tabIndex', '-1');
     }
 }
 
@@ -202,7 +202,7 @@ function initMenu(){
 
     menuList.forEach(function(btn){
         btn.classList.remove('is-active');
-        btn.setAttribute('tab-index', '-1');
+        btn.setAttribute('tabIndex', '-1');
 
         const subMenu = btn.querySelectorAll('.subCategoryItem');
         const lastSubMenu = subMenu[subMenu.length - 1];
@@ -211,14 +211,14 @@ function initMenu(){
         btn.addEventListener('focusin', function (e) {
             const target = e.currentTarget;
             target.classList.add('is-active');
-            target.setAttribute('tab-index', '0');
+            target.setAttribute('tabIndex', '0');
         });
 
         lastSubMenu.addEventListener('keydown', function(e) {
             if(e.key === 'Tab') {
                 if(!e.shiftKey) {
                     btn.classList.remove('is-active');
-                    btn.setAttribute('tab-index', '-1');
+                    btn.setAttribute('tabIndex', '-1');
                 }
             }
         });
@@ -227,7 +227,7 @@ function initMenu(){
             if(e.key === 'Tab') {
                 if(e.shiftKey) {
                     btn.classList.remove('is-active');
-                    btn.setAttribute('tab-index', '-1');
+                    btn.setAttribute('tabIndex', '-1');
                 }
             }
         });
@@ -235,13 +235,13 @@ function initMenu(){
         btn.addEventListener('mouseenter', function(e){
             const target = e.currentTarget;
             target.classList.add('is-active');
-            target.setAttribute('tab-index', '0');
+            target.setAttribute('tabIndex', '0');
         });
 
         btn.addEventListener('mouseleave', function(e){
             const target = e.currentTarget;
             target.classList.remove('is-active');
-            btn.setAttribute('tab-index', '-1');
+            btn.setAttribute('tabIndex', '-1');
         });
     });
    
